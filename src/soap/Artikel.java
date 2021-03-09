@@ -3,16 +3,20 @@ package soap;
 import java.io.Serializable;
 
 public class Artikel implements Serializable {
-	int nummer;
-	String name;
-	int menge;
-	float profitabilitaet;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int nummer;
+	private String name;
+	private int menge;
+	private double profitabilitaet;
 
 	public Artikel() {
 
 	}
 
-	public Artikel(int nummer, String name, int menge, float profitabilitaet) {
+	public Artikel(int nummer, String name, int menge, double profitabilitaet) {
 		this.nummer = nummer;
 		this.name = name;
 		this.menge = menge;
@@ -43,12 +47,18 @@ public class Artikel implements Serializable {
 		this.menge = menge;
 	}
 
-	public float getProfitabilitaet() {
+	public double getProfitabilitaet() {
 		return profitabilitaet;
 	}
 
 	public void setProfitabilitaet(float profitabilitaet) {
 		this.profitabilitaet = profitabilitaet;
+	}
+
+	@Override
+	public String toString() {
+		return "Artikel [nummer=" + nummer + ", name=" + name + ", menge=" + menge + ", profitabilitaet="
+				+ profitabilitaet + "]";
 	}
 
 }

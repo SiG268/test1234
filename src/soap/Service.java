@@ -1,9 +1,12 @@
 package soap;
 
+import java.util.List;
+
 import javax.jws.WebService;
 
 import acquisitionpostingservice.gen.AcquisitionPostingService;
 import acquisitionpostingservice.gen.AcquisitionPostingServiceService;
+import itemservice.gen.Item;
 import itemservice.gen.ItemService;
 import itemservice.gen.ItemServiceService;
 import orderservice.gen.Order;
@@ -30,8 +33,19 @@ public class Service {
 
 		bestellung.setBestellnummer(o.getOrderNo());
 		bestellung.setDatum(o.getOrderDate());
-		OrderLine ol = (OrderLine) o.getOrderLines();
-
+		List<OrderLine> ols = o.getOrderLines();
+		for (OrderLine ol : ols) {
+			Item i = itemservice.getItem(ol.getItemNo());
+			double avgpp = acservice.getAveragePurchasePrice(ol.getItemNo(), Bestellnummer, ol.getQuantity());
+			double prof = (ol.getNetSalesUnitPrice() - avgpp) * ol.getQuantity();
+			Artikel a = new Artikel(ol.getItemNo(), i.getDescription(), ol.getQuantity(), prof);
+			bestellung.artikel.add(a);
+		}
+		double sum = 0;
+		for (Artikel a : bestellung.artikel) {
+			sum = sum + a.getProfitabilitaet();
+		}
+		bestellung.setGuv(sum);
 		return bestellung;
 	}
 

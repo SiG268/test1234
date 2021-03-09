@@ -1,22 +1,34 @@
 package soap;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
 public class Bestellinformation implements Serializable {
-	int bestellnummer;
-	XMLGregorianCalendar datum;
-	float guv;
-	HashMap<Integer, Artikel> artikel;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int bestellnummer;
+	private XMLGregorianCalendar datum;
+	private double guv;
+	List<Artikel> artikel = new ArrayList<Artikel>();
+
+	public List<Artikel> getArtikel() {
+		return artikel;
+	}
+
+	public void setArtikel(List<Artikel> artikel) {
+		this.artikel = artikel;
+	}
 
 	public Bestellinformation() {
 
 	}
 
-	public Bestellinformation(int bestellnummer, XMLGregorianCalendar datum, float guv,
-			HashMap<Integer, Artikel> artikel) {
+	public Bestellinformation(int bestellnummer, XMLGregorianCalendar datum, float guv, List<Artikel> artikel) {
 		this.bestellnummer = bestellnummer;
 		this.datum = datum;
 		this.guv = guv;
@@ -39,20 +51,18 @@ public class Bestellinformation implements Serializable {
 		this.datum = datum;
 	}
 
-	public float getGuv() {
+	public double getGuv() {
 		return guv;
 	}
 
-	public void setGuv(float guv) {
+	public void setGuv(double guv) {
 		this.guv = guv;
 	}
 
-	public HashMap<Integer, Artikel> getArtikel() {
-		return artikel;
-	}
-
-	public void setArtikel(HashMap<Integer, Artikel> artikel) {
-		this.artikel = artikel;
+	@Override
+	public String toString() {
+		return "Bestellinformation [bestellnummer=" + bestellnummer + ", datum=" + datum + ", guv=" + guv + ", artikel="
+				+ artikel + "]";
 	}
 
 }
